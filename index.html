@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Popular Dineout - Home</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Basic Reset */
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+        body { background-color: #0a0a0a; color: #ffffff; overflow-x: hidden; }
+
+        /* Navbar Design */
+        .navbar { display: flex; justify-content: space-between; align-items: center; padding: 20px 50px; background-color: rgba(10, 10, 10, 0.95); position: fixed; width: 100%; top: 0; z-index: 100; border-bottom: 1px solid #d4af37; }
+        .brand-container { display: flex; flex-direction: column; align-items: flex-start; }
+        .logo { font-family: 'Cinzel', serif; color: #d4af37; font-size: 34px; letter-spacing: 3px; font-weight: 700; text-transform: uppercase; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8), 0 0 15px rgba(212, 175, 55, 0.4); cursor: pointer; line-height: 1.1; }
+        .tagline { color: #cccccc; font-size: 11px; letter-spacing: 2px; font-weight: 300; font-style: italic; text-transform: uppercase; margin-top: 2px; }
+        
+        .nav-links { list-style: none; display: flex; gap: 25px; align-items: center; }
+        .nav-links a { color: #ffffff; text-decoration: none; font-size: 16px; font-weight: 400; transition: 0.3s; }
+        .nav-links a:hover { color: #d4af37; }
+
+        /* Dropdown Menu */
+        .dropdown { position: relative; display: inline-block; }
+        .dropdown-content { display: none; position: absolute; background-color: #111111; min-width: 240px; box-shadow: 0px 8px 20px rgba(0,0,0,0.9); z-index: 101; border: 1px solid #d4af37; border-top: none; border-radius: 0 0 8px 8px; top: 100%; left: 50%; transform: translateX(-50%); overflow: hidden; }
+        .dropdown-content a { color: #cccccc; padding: 12px 20px; text-decoration: none; display: block; font-size: 14px; border-bottom: 1px dotted rgba(212, 175, 55, 0.3); text-align: center; transition: 0.3s; }
+        .dropdown-content a:last-child { border-bottom: none; }
+        .dropdown-content a:hover { background-color: #d4af37; color: #000000; font-weight: 600; }
+        .dropdown:hover .dropdown-content { display: block; animation: fadeIn 0.3s ease-in-out; }
+        @keyframes fadeIn { from {opacity: 0; transform: translate(-50%, -10px);} to {opacity: 1; transform: translate(-50%, 0);} }
+
+        /* Hero Section */
+        .hero-section { height: 100vh; display: flex; justify-content: center; align-items: center; text-align: center; background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.8)), url('images/interior.jpg') center/cover; background-color: #111; }
+        .hero-content { width: 100%; padding: 0 20px; }
+        .hero-content h3 { font-family: 'Cinzel', serif; color: #d4af37; font-size: 26px; margin-bottom: 10px; letter-spacing: 2px; }
+        .hero-content h1 { font-family: 'Cinzel', serif; font-size: 55px; margin-bottom: 20px; letter-spacing: 1px; text-shadow: 2px 2px 10px rgba(0,0,0,0.8); }
+        .hero-content p { font-size: 18px; margin-bottom: 30px; color: #cccccc; font-weight: 300; }
+        
+        .btn-gold { background-color: #d4af37; color: #000; padding: 15px 35px; text-decoration: none; font-size: 18px; font-weight: 600; border-radius: 5px; transition: 0.3s; display: inline-block; box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3); }
+        .btn-gold:hover { background-color: #ffffff; color: #d4af37; box-shadow: 0 4px 20px rgba(255, 255, 255, 0.4); transform: translateY(-2px); }
+
+        /* Info Section */
+        .info-section { padding: 60px 20px; background-color: #111111; }
+        .info-container { max-width: 1100px; margin: 0 auto; display: flex; gap: 30px; justify-content: space-between; }
+        .info-card { background-color: #1a1a1a; border: 1px solid #d4af37; border-radius: 12px; padding: 30px; flex: 1; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5); }
+        .info-card h2 { font-family: 'Cinzel', serif; color: #d4af37; font-size: 22px; margin-bottom: 20px; border-bottom: 1px dashed #d4af37; padding-bottom: 10px; }
+        .info-item { display: flex; align-items: flex-start; margin-bottom: 15px; font-size: 15px; color: #dddddd; line-height: 1.6; }
+        .info-icon { font-size: 20px; margin-right: 15px; color: #d4af37; }
+        
+        .direct-delivery-box { background: rgba(212, 175, 55, 0.1); border-left: 4px solid #d4af37; padding: 15px; border-radius: 0 5px 5px 0; margin-top: 20px; }
+        .direct-delivery-box h4 { color: #d4af37; font-size: 15px; margin-bottom: 5px; display: flex; align-items: center; gap: 8px; }
+        .min-order { display: inline-block; background-color: #d4af37; color: #000; font-size: 12px; font-weight: 600; padding: 4px 10px; border-radius: 20px; }
+
+        /* Floating Buttons */
+        .whatsapp-float, .instagram-float { position: fixed; bottom: 30px; width: 60px; height: 60px; z-index: 1000; transition: transform 0.3s ease; }
+        .whatsapp-float { right: 30px; } .instagram-float { left: 30px; }
+        .whatsapp-float img, .instagram-float img { width: 100%; height: 100%; }
+        .whatsapp-float:hover, .instagram-float:hover { transform: scale(1.1); }
+
+        /* Mobile */
+        @media (max-width: 768px) {
+            .navbar { flex-direction: column; padding: 15px 10px; gap: 12px; }
+            .nav-links { gap: 15px; flex-wrap: wrap; justify-content: center; }
+            .dropdown-content { position: static; width: 100%; transform: none; border: 1px solid #d4af37; margin-top: 10px; }
+            .hero-content h1 { font-size: 32px; line-height: 1.2; }
+            .info-container { flex-direction: column; }
+        }
+        /* Logo Glow and Transition - Guaranteed Work */
+.brand-container a {
+    text-decoration: none;
+}
+.logo {
+    transition: text-shadow 0.4s ease-in-out !important;
+}
+.logo:hover {
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.9), 0 0 15px #d4af37 !important;
+}
+/* Welcome Note (About Section) Styling */
+        .welcome-note {
+            max-width: 850px;
+            margin: 0 auto 30px auto; /* नीचे वाले बॉक्स से थोड़ी दूरी */
+            background-color: #1a1a1a;
+            border: 1px solid #d4af37; /* गोल्डन बॉर्डर */
+            border-radius: 12px;
+            padding: 20px 30px; /* स्पेसिंग कम रखी है ताकि स्क्रीन में फिट हो */
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+        .welcome-note h3 { color: #cccccc; font-size: 14px; letter-spacing: 2px; font-weight: 300; margin-bottom: 2px; }
+        .welcome-note h2 { font-family: 'Cinzel', serif; color: #d4af37; font-size: 30px; margin-bottom: 2px; }
+        .welcome-note .tag { color: #d4af37; font-size: 13px; font-style: italic; display: block; margin-bottom: 12px; }
+        .welcome-note hr { border: 0; border-top: 1px dashed rgba(212, 175, 55, 0.4); margin: 12px auto; width: 70%; }
+        /* पैराग्राफ की सेटिंग: स्पेसिंग कम की है */
+        .welcome-note p { font-size: 14px; color: #dddddd; margin-bottom: 6px; line-height: 1.3; }
+        .welcome-note .signature { font-family: 'Cinzel', serif; color: #d4af37; margin-top: 10px; font-size: 16px; margin-bottom: 0; }
+        
+        /* मोबाइल पर और भी अच्छे से फिट होने के लिए */
+        @media (max-width: 768px) {
+            .welcome-note { padding: 15px; margin-bottom: 20px; }
+            .welcome-note h2 { font-size: 24px; }
+            .welcome-note p { font-size: 13px; margin-bottom: 5px; }
+        }
+    </style>
+</head>
+<body>
+
+    <a href="https://wa.me/919060933297" class="whatsapp-float" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp"></a>
+    <a href="https://instagram.com/populardineout" class="instagram-float" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/e/e7/Instagram_logo_2016.svg" alt="Instagram"></a>
+
+    <nav class="navbar">
+        <div class="brand-container">
+    <a href="index.html" style="text-decoration: none;">
+        <h1 class="logo">Popular Dineout</h1>
+    </a>
+    <span class="tagline">Where Great Taste Meets Great Moments</span>
+</div>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            
+            <li class="dropdown">
+    <a href="menu.html" class="dropbtn">Menu ▾</a>
+    <div class="dropdown-content">
+        <a href="menu.html#cat-soups-shakes">Soups & Shakes</a>
+        <a href="menu.html#cat-quickbites">Quick Bites</a>
+        <a href="menu.html#cat-appetizers">Appetizers (Chinese)</a>
+        <a href="menu.html#cat-tandoori">Tandoor Se</a>
+        <a href="menu.html#cat-maincourse">Indian Main Course</a>
+        <a href="menu.html#cat-breads-sides">Breads, Greens & Raita</a>
+        <a href="menu.html#cat-rice-noodles">Rice, Biryani & Noodles</a>
+        <a href="menu.html#cat-combos">Popular's Special Thali Combos</a>
+        <a href="menu.html#cat-desserts-bev">Desserts & Beverages</a>
+    </div>
+</li>
+            <li><a href="#about">About</a></li>
+        </ul>
+    </nav>
+
+    <header id="home" class="hero-section">
+        <div class="hero-content">
+            <h3>Cafe & Restaurant</h3>
+            <h1>A Luxury Dining Experience</h1>
+            <p>With Authentic Indian, Chinese & Mughlai Flavours in Patna.</p>
+            <a href="menu.html" class="btn-gold">Explore Menu</a>
+        </div>
+    </header>
+
+    <section class="info-section" id="about">
+        <section class="info-section" id="about">
+        
+        <div class="welcome-note">
+            <h3>WELCOME TO</h3>
+            <h2>Popular Dineout</h2>
+            <span class="tag">Where Great Taste Meets Great Moments</span>
+            
+            <hr>
+            
+            <p>Dear Guest,</p>
+            <p>Welcome to Popular Dineout, where delicious food, warm hospitality, and memorable dining come together.</p>
+            <p>Our menu brings you a delightful blend of Indian, Chinese, Mughlai, and favourite fast-food flavours, prepared with fresh ingredients and authentic taste.</p>
+            <p>From sizzling starters to refreshing beverages and indulgent desserts, every dish is crafted to make your experience special.</p>
+            <p>Thank you for choosing Popular Dineout. Sit back, relax, and enjoy a delightful journey of flavours with your family and friends.</p>
+            
+            <hr>
+            
+            <p class="signature">Warm Regards,<br>The Popular Dineout Team</p>
+        </div>
+        <div class="info-container">
+            <div class="info-card">
+                <h2>Visit Us</h2>
+                <div class="info-item"><span class="info-icon">📍</span><p>A1 PC Colony, Near Panch Shiv Mandir, Shalimar Sweets Wali Road, Kankarbagh, Patna - 20</p></div>
+                <div class="info-item"><span class="info-icon">⏰</span><p><strong>Open Daily:</strong> 10:00 AM to 11:00 PM</p></div>
+                <div class="info-item"><span class="info-icon">📞</span><p>+91 9060933297 <br> +91 8935949370</p></div>
+            </div>
+            <div class="info-card">
+                <h2>Order Online</h2>
+                <div class="info-item"><p style="margin-bottom: 10px;">Order Your Favorites On Swiggy & Zomato:</p></div>
+                <div class="delivery-partners" style="display: flex; gap: 25px; align-items: center; margin-top: 15px;">
+    
+    <a href="https://www.swiggy.com/" target="_blank" style="text-decoration: none;">
+        <img src="swiggy.png" alt="Swiggy" style="height: 45px; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.3); transition: 0.3s;">
+    </a>
+    
+    <a href="https://www.zomato.com/" target="_blank" style="text-decoration: none;">
+        <img src="zomato.png" alt="Zomato" style="height: 45px; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.3); transition: 0.3s;">
+    </a>
+
+</div>
+                <div class="direct-delivery-box">
+    <h4>🛵 Direct Free Home Delivery</h4>
+    <p style="font-size: 14px; margin-bottom: 10px; color: #cccccc;">Fresh & Hot Food Delivered Across Kankarbagh, 90 Feet, New Jaganpura, Kadamkuan & Nearby Areas.</p>
+    <span class="min-order">Min. Order Value: ₹549/-</span>
+</div>
+            </div>
+        </div>
+    </section>
+
+</body>
+</html>
