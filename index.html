@@ -194,6 +194,23 @@
             </div>
         </div>
     </section>
+<script>
+        // राइट-क्लिक बंद करने के लिए
+        document.addEventListener('contextmenu', event => event.preventDefault());
 
+        // F12, Ctrl+U (View Source), Ctrl+C (Copy) और Inspect Element बंद करने के लिए
+        document.onkeydown = function(e) {
+            if (e.key === 'F12' || 
+                (e.ctrlKey && e.shiftKey && e.key === 'I') || 
+                (e.ctrlKey && e.shiftKey && e.key === 'J') || 
+                (e.ctrlKey && e.key === 'U') || 
+                (e.ctrlKey && e.key === 'C')) {
+                return false;
+            }
+        };
+        
+        // टेक्स्ट सेलेक्ट करना बंद करने के लिए
+        document.addEventListener('selectstart', event => event.preventDefault());
+    </script>
 </body>
 </html>
